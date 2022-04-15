@@ -22,8 +22,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-
-        if (editText1.text.toString().equals("") == false && editText2.text.toString().equals("") == false) {
+        if (!editText1.text.isNullOrBlank() && !editText2.text.isNullOrBlank() && editText1.text.toString() != "." && editText2.text.toString() != ".") {
             val edit1 = editText1.text.toString()
             val edit2 = editText2.text.toString()
             val num1 = edit1.toFloat()
@@ -43,12 +42,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     Log.d("kotlintest", "0で割ろうとしました")
                     Log.d("kotlintest", e.message.toString())
                 } finally {
-                    Log.d("kotlintest", "sum = " + sum.toString())
+                    Snackbar.make(v, "0での割り算はできません", Snackbar.LENGTH_SHORT)
+                        .show()
+                    return
                 }
             }
+
             val intent = Intent(this, SecondActivity::class.java)
             intent.putExtra("VALUE1", sum)
             startActivity(intent)
+
         } else {
             Snackbar.make(v, "何か数値を入力してください", Snackbar.LENGTH_SHORT)
                 .show()
