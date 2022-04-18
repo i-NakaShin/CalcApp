@@ -36,16 +36,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             } else if (v.id == R.id.multiplication) {
                 sum = num1 * num2
             } else if (v.id == R.id.division) {
-                try {
-                    sum = num1 / num2
-                } catch (e: Exception) {
-                    Log.d("kotlintest", "0で割ろうとしました")
-                    Log.d("kotlintest", e.message.toString())
-                } finally {
+                if (num2 == 0.toFloat()) {
                     Snackbar.make(v, "0での割り算はできません", Snackbar.LENGTH_SHORT)
                         .show()
                     return
                 }
+                sum = num1 / num2
             }
 
             val intent = Intent(this, SecondActivity::class.java)
